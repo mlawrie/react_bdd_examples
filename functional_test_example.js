@@ -1,9 +1,12 @@
 'use strict'
 
 const wait = () => new Promise((resolve) => setImmediate(resolve))
-import { getState } from 'store/redux_store'
+const fillIn = (wrapper, input, value) => wrapper.find(input).simulate('change', {target: {value}})
+
+import { getState } from 'redux_store'
 import * as React from 'react'
-import { MyCoolApp } from 'app/app'
+import { MyCoolApp } from 'app'
+import { mount } from 'enzyme'
 
 describe('login flow', () => {
   let httpRequest
@@ -23,19 +26,19 @@ describe('login flow', () => {
   })
 
   pit('logs user in and displays account information', () => {
-    const app = getInteractiveView(<MyCoolApp/>)
+    const wrapper = mount(<MyCoolApp/>)
 
-    app.press('login')
-    app.fillIn('username', 'jsmith1')
-    app.fillIn('password', 'password1')
-    app.press('submit')
+    wrapper.find('login').simulate('click')
+    fillIn(wrapper, 'username', 'jsmith1')
+    fillIn(wrapper, 'password', 'password1')
+    wrapper.find('submit').simulate('click')
 
     return wait().then(() => {
       expect(lastCallToEndpoint(ENDPOINTS.LOGIN).headers.Authorization).to.eql(httpBasic('jsmith1', 'password1'))
       expect(getState().navigation.routes[0].name).to.eql('ACCOUNT_INDEX')
 
-      expect(app.text()).to.contain('Name: John Smith')
-      expect(app.text()).to.contain('Email: jsmith@example.com')
+      expect(wrapper.text()).to.contain('Name: John Smith')
+      expect(wrapper.text()).to.contain('Email: jsmith@example.com')
     })
   })
 })
