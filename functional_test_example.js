@@ -2,6 +2,14 @@
 
 const wait = () => new Promise((resolve) => setImmediate(resolve))
 const fillIn = (wrapper, input, value) => wrapper.find(input).simulate('change', {target: {value}})
+const lastCallToEndpoint = (httpRequest, url) => {
+  const calls = httpRequest.args.filter((args) => args[0] === url);
+
+  if (calls.length == 0) {
+      throw url + ' was never called!'
+  }
+  return calls[0][1]
+}
 
 import { getState } from 'redux_store'
 import * as React from 'react'
@@ -34,7 +42,7 @@ describe('login flow', () => {
     wrapper.find('submit').simulate('click')
 
     return wait().then(() => {
-      expect(lastCallToEndpoint(ENDPOINTS.LOGIN).headers.Authorization).to.eql(httpBasic('jsmith1', 'password1'))
+      expect(lastCallToEndpoint(httpRequest, ENDPOINTS.LOGIN).headers.Authorization).to.eql(httpBasic('jsmith1', 'password1'))
       expect(getState().navigation.routes[0].name).to.eql('ACCOUNT_INDEX')
 
       expect(wrapper.text()).to.contain('Name: John Smith')
