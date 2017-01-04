@@ -1,30 +1,34 @@
 'use strict'
 
-import { dispatch } from 'redux_store'
-import { TestUtils } from 'react/addons'
-import { userLoginAction } from 'actions'
-import * as React from 'react'
-import { AccountIndex } from 'account_index'
-import { shallow } from 'enzyme'
+import * as React from 'react';
+import { shallow, mount } from 'enzyme';
+import { dispatch } from 'redux_store';
+import { userLoginAction } from 'actions';
+import { AccountLoginView } from 'accountLoginView';
+import { AccountDetailsView } from 'accountDetailsView';
 
-describe('AccountIndex: bad example', () => {
-  it("shows the user's name and email", () => {
-    const wrapper = shallow(<AccountIndex email="jsmith@example.com" firstName="John" lastName="Smith"/>)
-    expect(wrapper.text()).to.contain('Name: John Smith')
-    expect(wrapper.text()).to.contain('Email: jsmith@example.com')
-  })
+// Traditional Unit test
+describe('Traditional Unit Test', () => {
+  describe('AccountDetailsView', () => {
+    it("shows the user's name and email", () => {
+      const wrapper = shallow(<AccountDetailsView email="jsmith@example.com" firstName="John" lastName="Smith"/>);
+      expect(wrapper.text()).to.contain('Name: John Smith');
+      expect(wrapper.text()).to.contain('Email: jsmith@example.com');
+    });
+  });
 
-  it('shows the details section when pressed', () => {
-    const renderer = TestUtils.createRenderer()
-    renderer.render(<AccountIndex email="jsmith@example.com" firstName="John" lastName="Smith"/>)
-    const instance = tree.getMountedInstance();
-    expect(instance.getState().detailsSectionVisible).is.not.ok
-    instance.onDetailsPressed()
-    expect(instance.getState().detailsSectionVisible).is.ok
-  })
-})
+  describe('AccountLoginView', () => {
+    it('shows the details section when pressed', () => {
+      const wrapper = mount(<AccountLoginView email="jsmith@example.com" firstName="John" lastName="Smith"/>)
+      const instance = wrapper.instance();
+      expect(instance.getState()).is.not.ok
+      instance.onDetailsPressed()
+      expect(instance.getState().detailsSectionVisible).is.ok
+    });
+  })l;
+});
 
-describe('AccountIndex: good example', () => {
+describe('Behavioral Component Test', () => {
   const setupWrapper = () => {
     dispatch(userLoginAction({firstName: "John", lastName: "Smith", email: "jsmith@example.com"}))
     return shallow(<AccountIndex/>)
@@ -43,4 +47,3 @@ describe('AccountIndex: good example', () => {
     expect(wrapper.text()).to.contain('Account details')
   })
 })
-
