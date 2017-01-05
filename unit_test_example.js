@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { dispatch } from 'redux_store';
-import { userLoginAction } from 'actions';
+import { userLoginAction, setUserInfoAction } from 'actions';
 import { AccountLoginView } from 'accountLoginView';
 import { AccountDetailsView } from 'accountDetailsView';
 import { AccountLoginService } from 'accountLoginService';
@@ -46,7 +46,7 @@ describe('AccountDetailsView - Traditional Unit Test', () => {
 
 describe('AccountLoginView - Behavioral Component Test', () => {
   const setupWrapper = () => {
-    dispatch(userLoginAction({firstName: "John", lastName: "Smith", email: "jsmith@example.com"}))
+    dispatch(userLoginAction({username: 'jsmith' password: 'password'}))
     return shallow(<AccountLoginView/>)
   }
 
@@ -65,21 +65,10 @@ describe('AccountLoginView - Behavioral Component Test', () => {
 })
 
 describe('AccountDetailsView - Behavioral Component Test', () => {
-  const setupWrapper = () => {
-    dispatch(userLoginAction({firstName: "John", lastName: "Smith", email: "jsmith@example.com"}))
-    return shallow(<AccountDetailsView/>)
-  }
-
   it("shows the user's name and email", () => {
-    const wrapper = setupWrapper()
+    dispatch(setUserInfoAction({firstName: "John", lastName: "Smith", email: "jsmith@example.com"}))
+    const wrapper = shallow(<AccountDetailsView/>);
     expect(wrapper.text()).to.contain('Name: John Smith')
     expect(wrapper.text()).to.contain('Email: jsmith@example.com')
-  })
-
-  it('shows the details section when pressed', () => {
-    const wrapper = setupWrapper()
-    expect(wrapper.text()).to.not.contain('Account details')
-    wrapper.find('submit').simulate('click')
-    expect(wrapper.text()).to.contain('Account details')
-  })
+  });
 })
