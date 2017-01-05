@@ -1,25 +1,23 @@
 'use strict'
 
 import * as React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { dispatch } from 'redux_store';
 import { userLoginAction } from 'actions';
 import { AccountLoginView } from 'accountLoginView';
 import { AccountDetailsView } from 'accountDetailsView';
 import { AccountLoginService } from 'accountLoginService';
 
-//View Function + Action Creator + Reducer
-
 describe('AccountLoginView - Traditional Unit Test', () => {
   it('shows the login form section when pressed', () => {
-    const instance = mount(<AccountDetailsView/>).instance();
+    const instance = shallow(<AccountDetailsView/>).instance();
     expect(instance.getState().loginFormVisible).to.eq(false)
     instance.onLoginButton()
     expect(instance.getState().loginFormVisible).to.eq(true)
   });
 
   it('adds error messages for submitting an empty form', () => {
-    const instance = mount(<AccountDetailsView/>).instance();
+    const instance = shallow(<AccountDetailsView/>).instance();
     instance.onLoginButton();
     instance.onSubmit();
     expect(instance.getState().errors).to.contain("Username required");
@@ -29,7 +27,7 @@ describe('AccountLoginView - Traditional Unit Test', () => {
   it("calls AccountLoginService with user's credentials", () => {
     const accountLoginServiceStub = sinon.stub();
     jest.setMock('accountLoginService', accountLoginServiceStub);
-    const instance = mount(<AccountDetailsView/>).instance();
+    const instance = shallow(<AccountDetailsView/>).instance();
     instance.onLoginButton();
     instance.setState({username: 'jsmith', password: 'password'})
     instance.onSubmit();
@@ -39,7 +37,7 @@ describe('AccountLoginView - Traditional Unit Test', () => {
 
 describe('AccountDetailsView - Traditional Unit Test', () => {
   it("shows the user's name and email", () => {
-    const instance = mount(<AccountDetailsView/>).instance();
+    const instance = shallow(<AccountDetailsView/>).instance();
     instance.setState({firstName: 'John', lastName: 'Smith', email: "jsmith@example.com"});
     expect(wrapper.text()).to.contain('Name: John Smith')
     expect(wrapper.text()).to.contain('Email: jsmith@example.com')
