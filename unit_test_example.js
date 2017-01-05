@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { dispatch } from 'redux_store';
-import { userLoginAction, setUserInfoAction } from 'actions';
+import { setLoginInfoAction, setUserInfoAction, showLoginFormAction } from 'actions';
 import { AccountLoginView } from 'accountLoginView';
 import { AccountDetailsView } from 'accountDetailsView';
 import { AccountLoginService } from 'accountLoginService';
@@ -45,23 +45,27 @@ describe('AccountDetailsView - Traditional Unit Test', () => {
 });
 
 describe('AccountLoginView - Behavioral Component Test', () => {
-  const setupWrapper = () => {
-    dispatch(userLoginAction({username: 'jsmith' password: 'password'}))
-    return shallow(<AccountLoginView/>)
-  }
+  it('adds error messages for submitting an empty form', () => {
+    const wrapper = shallow(<AccountDetailsView/>);
+    dispatch(showLoginFormAction({loginFormVisible:true}))
 
-  it("shows the user's name and email", () => {
-    const wrapper = setupWrapper()
-    expect(wrapper.text()).to.contain('Name: John Smith')
-    expect(wrapper.text()).to.contain('Email: jsmith@example.com')
-  })
+    wrapper.find('#submit').simulate('click');
 
-  it('shows the details section when pressed', () => {
-    const wrapper = setupWrapper()
-    expect(wrapper.text()).to.not.contain('Account details')
-    wrapper.find('submit').simulate('click')
-    expect(wrapper.text()).to.contain('Account details')
-  })
+    expect(instance.text()).to.contain("Username required");
+    expect(instance.text()).to.contain("Password required");
+  });
+
+  it("calls AccountLoginService with user's credentials", () => {
+    const accountLoginServiceStub = sinon.stub();
+    jest.setMock('accountLoginService', accountLoginServiceStub);
+    const wrapper = shallow(<AccountDetailsView/>);
+    dispatch(showLoginFormAction({loginFormVisible:true}));
+    dispatch(setLoginInfoAction({username: 'jsmith', password: 'password'}));
+
+    wrapper.find('#submit').simulate('click');
+
+    expect(accountLoginServiceStub).to.be.calledWith('jsmith:password');
+  });
 })
 
 describe('AccountDetailsView - Behavioral Component Test', () => {
