@@ -14,7 +14,7 @@ const lastCallToEndpoint = (httpRequest, url) => {
   return calls[0][1]
 }
 
-describe('login flow', () => {
+describe('LoginApp - Subcutaneous Function Test', () => {
   let httpRequest
 
   beforeEach(() => {
@@ -40,11 +40,10 @@ describe('login flow', () => {
     wrapper.find('#submit').simulate('click')
 
     return waitForAsyncTasks().then(() => {
-      expect(lastCallToEndpoint(httpRequest, ENDPOINTS.LOGIN).headers.Authorization).to.eql(httpBasic('jsmith1', 'password1'))
+      expect(lastCallToEndpoint(httpRequest, ENDPOINTS.LOGIN).headers.Authorization).to.eql(httpBasic('jsmith1', 'password1'));
 
-      expect(wrapper.text()).to.contain('First Name: John')
-      expect(wrapper.text()).to.contain('Last Name: Smith')
-      expect(wrapper.text()).to.contain('Email: jsmith@example.com')
+      expect(wrapper.text()).to.contain('Name: John Smith');
+      expect(wrapper.text()).to.contain('Email: jsmith@example.com');
     })
   })
 })
