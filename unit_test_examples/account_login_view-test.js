@@ -5,7 +5,6 @@ import { shallow } from 'enzyme';
 import { dispatch } from 'redux_store';
 import { setLoginInfoAction, setUserInfoAction, showLoginFormAction } from 'actions';
 import { AccountLoginView } from 'accountLoginView';
-import { AccountDetailsView } from 'accountDetailsView';
 import { AccountLoginService } from 'accountLoginService';
 
 describe('AccountLoginView - Traditional Unit Test', () => {
@@ -35,15 +34,6 @@ describe('AccountLoginView - Traditional Unit Test', () => {
   });
 });
 
-describe('AccountDetailsView - Traditional Unit Test', () => {
-  it("shows the user's name and email", () => {
-    const instance = shallow(<AccountDetailsView/>).instance();
-    instance.setState({firstName: 'John', lastName: 'Smith', email: "jsmith@example.com"});
-    expect(wrapper.text()).to.contain('Name: John Smith');
-    expect(wrapper.text()).to.contain('Email: jsmith@example.com');
-  });
-});
-
 describe('AccountLoginView - Behavioral Component Test', () => {
   it('adds error messages for submitting an empty form', () => {
     const wrapper = shallow(<AccountDetailsView/>);
@@ -56,8 +46,6 @@ describe('AccountLoginView - Behavioral Component Test', () => {
   });
 
   it("calls AccountLoginService with user's credentials", () => {
-    const accountLoginServiceStub = sinon.stub();
-    jest.setMock('accountLoginService', accountLoginServiceStub);
     const wrapper = shallow(<AccountDetailsView/>);
     dispatch(showLoginFormAction({loginFormVisible:true}));
     dispatch(setLoginInfoAction({username: 'jsmith', password: 'password'}));
@@ -65,14 +53,5 @@ describe('AccountLoginView - Behavioral Component Test', () => {
     wrapper.find('#submit').simulate('click');
 
     expect(accountLoginServiceStub).to.be.calledWith('jsmith:password');
-  });
-});
-
-describe('AccountDetailsView - Behavioral Component Test', () => {
-  it("shows the user's name and email", () => {
-    dispatch(setUserInfoAction({firstName: "John", lastName: "Smith", email: "jsmith@example.com"}));
-    const wrapper = shallow(<AccountDetailsView/>);
-    expect(wrapper.text()).to.contain('Name: John Smith');
-    expect(wrapper.text()).to.contain('Email: jsmith@example.com');
   });
 });
