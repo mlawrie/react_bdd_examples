@@ -14,7 +14,7 @@ const lastCallToEndpoint = (httpRequest, url) => {
   return calls[0][1];
 };
 
-describe('LoginApp - Subcutaneous Function Test', () => {
+describe('LoginApp - Subcutaneous Functional Test', () => {
   let httpRequest;
 
   beforeEach(() => {
