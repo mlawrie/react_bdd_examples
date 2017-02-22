@@ -7,11 +7,11 @@ const AccountLoginView = ({ loginFormVisible, toggleVisibilty }) => {
   
   return <div style={styles.container}>
     <h1 style={styles.header}>LoginApp</h1>
-    <button style={{margin:15, ...loginButtonToggle}} onClick={toggleVisibilty}>Login</button>
+    <button style={{...styles.button, ...loginButtonToggle}} onClick={toggleVisibilty}>Login</button>
     <div style={{...styles.container, ...loginFormToggle}}>
       <input style={{margin:10}} type='text' placeholder='Username' id='username' />
       <input type='text' placeholder='Password' id='password' />
-      <button style={{margin:15}}>Submit</button>
+      <button style={styles.button}>Submit</button>
     </div>
   </div>
 }
@@ -22,6 +22,9 @@ const styles = {
     alignItems : 'center',
     flexDirection : 'column',
     display: 'flex'
+  }, 
+  button: {
+    margin: 15
   }
 };
 
