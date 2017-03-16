@@ -6,7 +6,7 @@ import { dispatch } from 'redux_store';
 import { showLoginFormAction } from 'actions';
 import { AccountLoginView } from 'accountLoginView';
 
-describe('AccountLoginView - Traditional Unit Test', () => {
+describe('AccountLoginView - Naive Unit Tests', () => {
   it('shows the login form section when pressed', () => {
     const instance = shallow(<AccountLoginView/>).instance();
     expect(instance.getState().loginFormVisible).to.eq(false);
