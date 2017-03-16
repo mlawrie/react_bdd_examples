@@ -8,14 +8,14 @@ import { AccountLoginView } from 'accountLoginView';
 
 describe('AccountLoginView - Traditional Unit Test', () => {
   it('shows the login form section when pressed', () => {
-    const instance = shallow(<AccountDetailsView/>).instance();
+    const instance = shallow(<AccountLoginView/>).instance();
     expect(instance.getState().loginFormVisible).to.eq(false);
     instance.onLoginButton();
     expect(instance.getState().loginFormVisible).to.eq(true);
   });
 
   it('adds error messages for submitting an empty form', () => {
-    const instance = shallow(<AccountDetailsView/>).instance();
+    const instance = shallow(<AccountLoginView/>).instance();
     instance.onLoginButton();
     instance.onSubmit();
     expect(instance.getState().errors).to.contain("Username required");
@@ -25,7 +25,7 @@ describe('AccountLoginView - Traditional Unit Test', () => {
 
 describe('AccountLoginView - Behavioral Component Test', () => {
   it('adds error messages for submitting an empty form', () => {
-    const wrapper = shallow(<AccountDetailsView/>);
+    const wrapper = shallow(<AccountLoginView/>);
     dispatch(showLoginFormAction({loginFormVisible:true}))
 
     wrapper.find('#submit').simulate('click');
