@@ -1,9 +1,9 @@
 {
-  "name": "signupapp",
+  "name": "SignUpApp",
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "webpack-dev-server --progress --colors",
+    "start": "webpack-dev-server --progress --colors --port 3000 --hot",
     "test": ""
   },
   "author": "dlaffy",
