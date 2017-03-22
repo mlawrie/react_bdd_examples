@@ -1,0 +1,21 @@
+body {
+  width: 80vh;
+  margin: 0 auto;
+}
+
+h2 {
+  text-align: center;
+}
+
+input {
+  display: block;
+  margin: 5px 0px;
+  padding: 5px;
+  width: 100%;
+}
+ 
+button {
+  margin: 10px auto;
+  padding: 5px;
+  display: block;
+}
