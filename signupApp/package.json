@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "start": "webpack-dev-server --progress --colors --port 3000 --hot",
-    "test": ""
+    "test": "mocha app/tests/*.js"
   },
   "author": "dlaffy",
   "license": "MIT",
@@ -22,6 +22,7 @@
     "enzyme": "^2.2.0",
     "jsx-loader": "^0.13.2",
     "mocha": "^3.2.0",
+    "react-addons-test-utils": "^15.4.2",
     "sinon": "^1.17.7",
     "webpack": "^2.3.0",
     "webpack-dev-server": "^2.4.2"
