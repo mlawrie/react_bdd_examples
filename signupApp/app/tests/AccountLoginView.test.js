@@ -1,7 +1,9 @@
 const assert = require('assert');
 const { mount } = require('enzyme');
 
-describe('test', () => {
+const AccountLoginView = require('../AccountLoginView');
+
+describe('AccountLoginView', () => {
   it('first test', () =>{
     assert.equal(true, true);
   })

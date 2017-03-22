@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "start": "webpack-dev-server --progress --colors --port 3000 --hot",
-    "test": "mocha app/tests/*.js"
+    "test": "mocha --compilers js:babel-core/register app/tests/*.js"
   },
   "author": "dlaffy",
   "license": "MIT",
