@@ -3,7 +3,7 @@ module.exports = {
   output: { path: __dirname, filename: 'bundle.js' },
   context: __dirname + '/app',
   module: {
-    loaders: [
+    rules: [
       {
         test: /.jsx?$/,
         loader: 'babel-loader',
