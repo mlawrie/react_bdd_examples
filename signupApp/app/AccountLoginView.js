@@ -1,30 +1,24 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-const LoginBtn = ({showLoginForm}) => (<button onClick={showLoginForm}>Login</button>);
-const LoginForm = () => (
+const SignUpBtn = ({showSignForm}) => (<button onClick={showSignForm}> Sign Up </button>);
+const SignUpForm = () => (
+  <form>
+      <input type='text' placeholder='Name' id='name' />
+      <input type='text' placeholder='Email' id='email' />
+      <input type='text' placeholder='Password' id='password' />
+      <input type='text' placeholder='Confirm Password' id='passwordConfirmation' />
+      <button> Submit </button>
+  </form>
+);
+
+const AccountLoginView = ({ formVisible, toggleVisibilty }) => (
   <div>
-    <input class="input" type='text' placeholder='Username' id='username' />
-    <input class="input" type='text' placeholder='Password' id='password' />
-    <button class="btn" >Submit</button>
+    <h2>Sign Up App</h2>
+    {formVisible ? <SignUpForm />  : <SignUpBtn showSignForm={toggleVisibilty}/>}
   </div>
 );
 
-const AccountLoginView = ({ loginFormVisible, toggleVisibilty }) => (
-  <div class="container-fluid">
-    <h1>LoginApp</h1>
-    {loginFormVisible ? <LoginForm />  : <LoginBtn showLoginForm={toggleVisibilty}/>}
-  </div>
-)
-
-const mapStateToProps = (state) => ({ 
-  loginFormVisible: state.loginFormVisible 
-})
-
-const mapDispatchToProps = (dispatch) => ({ 
-  toggleVisibilty:  () => {
-    dispatch({ type: 'LOGIN_FORM_VISIBLE' })
-  }
-})
-
+const mapStateToProps = (state) => ({ formVisible: state.formVisible });
+const mapDispatchToProps = (dispatch) => ({ toggleVisibilty:  () => dispatch({ type: 'form/visible' }) });
 export default connect(mapStateToProps, mapDispatchToProps)(AccountLoginView);
