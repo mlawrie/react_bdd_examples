@@ -2,7 +2,7 @@ import { createStore } from 'redux'
 
 const FORM_VISIBLE = 'form/visible';
 
-const loginReducers = (state = { formVisible: false }, action) => {
+const signUpReducer = (state = { formVisible: false }, action) => {
 	switch (action.type) {
 		case FORM_VISIBLE:
 			return { formVisible : true };
@@ -11,4 +11,4 @@ const loginReducers = (state = { formVisible: false }, action) => {
 	}
 }
 
-export default createStore(loginReducers);
+export default createStore(signUpReducer);
