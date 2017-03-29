@@ -1,10 +1,25 @@
-const assert = require('assert');
-const { mount } = require('enzyme');
+import React from 'react';
+import { jsdom } from 'jsdom';
 
-const AccountLoginView = require('../AccountLoginView');
+import { expect } from 'chai';
+import { mount } from 'enzyme';
+import { Provider } from 'react-redux';
+
+import store from '../redux_store';
+import AccountLoginView from '../AccountLoginView'
 
 describe('AccountLoginView', () => {
-  it('first test', () =>{
-    assert.equal(true, true);
+  global.document = jsdom();
+  global.window = global.document.defaultView;
+  
+  const wrapper = mount(
+    <Provider store={store} >
+      <AccountLoginView />
+    </Provider>
+  );
+
+  it('When I click the SignUpBtn the SignUpForm is visible', () => {
+    wrapper.find('button').simulate('click');
+    expect(wrapper.find('form').exists()).to.eql(true);
   })
 });
