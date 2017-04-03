@@ -6,7 +6,7 @@ import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 
 import store from '../redux_store';
-import { AccountLoginContainer } from '../AccountLoginView'
+import { SignUpFormContainer } from '../SignUpForm'
 
 describe('AccountLoginView', () => {
   global.document = jsdom();
@@ -14,12 +14,12 @@ describe('AccountLoginView', () => {
   
   const wrapper = mount(
     <Provider store={store} >
-      <AccountLoginContainer />
+      <SignUpFormContainer />
     </Provider>
   );
 
   it('When I click the SignUpBtn the SignUpForm is visible', () => {
-    wrapper.find('#showFormBtn').simulate('click');
-    expect(wrapper.find('form').exists()).to.eql(true);
+    wrapper.find('#submitFormBtn').simulate('click');
+    expect(wrapper.find('form').text()).contains('Missing Name');
   });
 });
