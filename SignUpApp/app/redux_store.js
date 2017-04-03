@@ -11,14 +11,20 @@ const signUpReducer = (state = false, action) => {
 	}
 }
 
+const FORM_UPDATE = 'form/update';
+
 const defaultFormState = {
-	name: { value: '', error: 'Missing Name' },
+	name: { value: '', error: '' },
 	email: { value: '', error: '' }, 
 	password: { value: '', error: '' }, 
 	passwordConfirmation: { value: '', error: '' }, 
 }
 
 const signUpFormReducer = (state = defaultFormState, action) => {
+	switch(action.type){
+		case FORM_UPDATE:
+			return Object.assign({}, state, action.formField)
+	}
 	return state;
 }
 

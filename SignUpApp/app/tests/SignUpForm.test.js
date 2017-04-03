@@ -18,7 +18,7 @@ describe('AccountLoginView', () => {
     </Provider>
   );
 
-  it('When I click the SignUpBtn the SignUpForm is visible', () => {
+  it('When I click the submitFormBtn I should see an error', () => {
     wrapper.find('#submitFormBtn').simulate('click');
     expect(wrapper.find('form').text()).contains('Missing Name');
   });
