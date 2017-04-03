@@ -6,7 +6,7 @@ import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 
 import store from '../redux_store';
-import { AccountLoginContainer } from '../AccountLoginView'
+import AccountLoginContainer from '../AccountLoginView'
 
 describe('AccountLoginView', () => {
   global.document = jsdom();

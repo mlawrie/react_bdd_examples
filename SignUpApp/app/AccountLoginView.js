@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { SignUpFormContainer } from './SignUpForm';
+import SignUpFormContainer from './SignUpForm';
 
 const SignUpBtn = ({showSignForm}) => (
   <button id="showFormBtn" onClick={showSignForm}> Sign Up </button>
@@ -16,4 +16,4 @@ const AccountLogin = ({ formVisible, toggleVisibilty }) => (
 
 const mapStateToProps = (state) => ({ formVisible: state.formVisible });
 const mapDispatchToProps = (dispatch) => ({ toggleVisibilty:  () => dispatch({ type: 'form/visible' }) });
-export const AccountLoginContainer = connect(mapStateToProps, mapDispatchToProps)(AccountLogin);
+export default connect(mapStateToProps, mapDispatchToProps)(AccountLogin);

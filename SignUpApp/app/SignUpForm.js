@@ -15,4 +15,4 @@ const SignUpForm = ({ form }) => (
   </form>
 );
 const mapStateToProps = (state) => ({form: state.form});
-export const SignUpFormContainer = connect(mapStateToProps)(SignUpForm);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);
