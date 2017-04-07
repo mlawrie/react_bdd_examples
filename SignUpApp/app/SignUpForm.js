@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const basicValidation = (message) => (field) => ({value: '', error: "Missing Name" });
+const basicValidation = (message) => (field) => ({value: '', error: message });
 
 const validate = (validators, formField) => validators.reduce(
-  (field, validator) => (console.log(Object.assign({}, field, validator(formField.value)))), 
+  (field, validator) => (Object.assign({}, field, validator(formField.value))), 
   formField  
 );
 
-const nameValidation = (formField) => validate([basicValidation("")], formField);
+const nameValidation = (formField) => validate([basicValidation("Missing Name")], formField);
 
 const SignUpForm = ({ form, updateValue }) => (
   <form>
