@@ -18,8 +18,11 @@ describe('AccountLoginView', () => {
     </Provider>
   );
 
-  it('When I click the submitFormBtn I should see an error', () => {
+  it('When I click the submitFormBtn I should see an errors', () => {
     wrapper.find('#submitFormBtn').simulate('click');
     expect(wrapper.find('form').text()).contains('Missing Name');
+    expect(wrapper.find('form').text()).contains('Missing Email');
+    expect(wrapper.find('form').text()).contains('Missing Password');
+    expect(wrapper.find('form').text()).contains('Missing Password Confirmation');
   });
 });
