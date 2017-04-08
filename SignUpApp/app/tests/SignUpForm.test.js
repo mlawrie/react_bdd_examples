@@ -12,17 +12,26 @@ describe('AccountLoginView', () => {
   global.document = jsdom();
   global.window = global.document.defaultView;
   
-  const wrapper = mount(
+  const SignUpFormWrapper = mount(
     <Provider store={store} >
       <SignUpForm />
     </Provider>
   );
 
   it('When I click the submitFormBtn I should see an errors', () => {
-    wrapper.find('#submitFormBtn').simulate('click');
-    expect(wrapper.find('form').text()).contains('Missing Name');
-    expect(wrapper.find('form').text()).contains('Missing Email');
-    expect(wrapper.find('form').text()).contains('Missing Password');
-    expect(wrapper.find('form').text()).contains('Missing Password Confirmation');
+    SignUpFormWrapper.find('#submitFormBtn').simulate('click');
+    expect(SignUpFormWrapper.find('form').text()).contains('Missing Name');
+    expect(SignUpFormWrapper.find('form').text()).contains('Missing Email');
+    expect(SignUpFormWrapper.find('form').text()).contains('Missing Password');
+    expect(SignUpFormWrapper.find('form').text()).contains('Missing Password Confirmation');
+  });
+
+  it('should not contain errors with valid values', () => {
+    SignUpFormWrapper.find('#name').simulate('change', { target : { value: 'name' } })
+    SignUpFormWrapper.find('#email').simulate('change', { target : { value: 'email' } })
+    SignUpFormWrapper.find('#password').simulate('change', { target : { value: 'password' } })
+    SignUpFormWrapper.find('#passwordConfirmation').simulate('change', { target : { value: 'passwordConfirmation' } })
+    SignUpFormWrapper.find('#submitFormBtn').simulate('click');
+    expect(SignUpFormWrapper.find('form').text()).eql(' Submit ');
   });
 });

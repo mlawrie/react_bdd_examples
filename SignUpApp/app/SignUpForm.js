@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const basicValidation = (message) => (field) => ({value: '', error: message });
+const basicValidation = (message) => (field) => (field.value === '' ? Object.assign({}, field, { error: message }) : Object.assign({}, field));
 
 const validate = (validators, formField) => validators.reduce(
-  (field, validator) => (Object.assign({}, field, validator(formField.value))), 
+  (field, validator) => (Object.assign({}, field, validator(formField))), 
   formField  
 );
 
@@ -22,21 +22,23 @@ const SignUpForm = ({ form, updateValue }) => {
   ];
   
   const runValidation = () => formValidations.forEach((validatedValue) => updateValue(validatedValue))
-  
+
   return <form>
-      <input type='text' placeholder='Name' id='name' />
+      <input onChange={(e) => updateValue({ name: { value: e.target.value }} )} type='text' placeholder='Name' id='name' />
       <label>{form.name.error}</label>
-      <input type='text' placeholder='Email' id='email' />
+      <input onChange={(e) => updateValue({ email: { value: e.target.value }} )} type='text' placeholder='Email' id='email' />
       <label>{form.email.error}</label>
-      <input type='text' placeholder='Password' id='password' />
+      <input onChange={(e) => updateValue({ password: { value: e.target.value }} )} type='text' placeholder='Password' id='password' />
       <label>{form.password.error}</label>
-      <input type='text' placeholder='Confirm Password' id='passwordConfirmation' />
+      <input onChange={(e) => updateValue({ passwordConfirmation: { value: e.target.value }} )} type='text' placeholder='Confirm Password' id='passwordConfirmation' />
       <label>{form.passwordConfirmation.error}</label>
       <button onClick={runValidation} id="submitFormBtn"> Submit </button>
   </form>
 };
+
 const mapStateToProps = (state) => ({form: state.form});
 const mapDispatchToProps = (dispatch) => ({
   updateValue: (formField) => dispatch({ type: 'form/update', formField })
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);
