@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import SignUpFormContainer from './SignUpForm';
+import SignUpForm from './SignUpForm';
 
 const SignUpBtn = ({showSignForm}) => (
   <button id="showFormBtn" onClick={showSignForm}> Sign Up </button>
@@ -10,7 +10,7 @@ const SignUpBtn = ({showSignForm}) => (
 const AccountLogin = ({ formVisible, toggleVisibilty }) => (
   <div>
     <h2>Sign Up App</h2>
-    {formVisible ? <SignUpFormContainer />  : <SignUpBtn showSignForm={toggleVisibilty}/>}
+    {formVisible ? <SignUpForm />  : <SignUpBtn showSignForm={toggleVisibilty}/>}
   </div>
 );
 
